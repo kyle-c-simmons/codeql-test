@@ -9,4 +9,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Issue Title
-        run: echo "Issue Title: ${{ github.event.issue.title }}"
+        run: |
+            echo "Issue Title: ${{ github.event.issue.title }}"
