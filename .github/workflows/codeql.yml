@@ -32,7 +32,6 @@ jobs:
       - name: Process SARIF output
         run: |
           echo "Processing SARIF output for ${{ matrix.language }}..."
-          jq '.' sarif-output-${{ matrix.language }}.sarif > processed-${{ matrix.language }}.json
-          cat processed-${{ matrix.language }}.json
+          cat sarif-output-${{ matrix.language }}.sarif
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
