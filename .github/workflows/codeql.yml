@@ -29,9 +29,10 @@ jobs:
         with:
           category: '/language:${{matrix.language}}'
           output: sarif-output-${{ matrix.language }}.sarif
-      - name: Process SARIF output
+      - name: Filter SARIF Results
         run: |
-          echo "Processing SARIF output for ${{ matrix.language }}..."
-          jq '.' sarif-output-${{ matrix.language }}.sarif/${{ matrix.language }}.sarif
+          jq '.runs[].results[] | {ruleId: .ruleId, message: .message.text, file: .locations[0].physicalLocation.artifactLocation.uri, startLine: .locations[0].physicalLocation.region.startLine, endLine: .locations[0].physicalLocation.region.endLine}' sarif-output-${{ matrix.language }}.sarif > filtered-${{ matrix.language }}.json
+      - name: Display Filtered Results
+        run: cat filtered-${{ matrix.language }}.json
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
