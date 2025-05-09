@@ -31,7 +31,7 @@ jobs:
           output: sarif-output-${{ matrix.language }}.sarif
       - name: Filter SARIF Results
         run: |
-          jq '.runs[].results[] | {ruleId: .ruleId, message: .message.text, file: .locations[0].physicalLocation.artifactLocation.uri, startLine: .locations[0].physicalLocation.region.startLine, endLine: .locations[0].physicalLocation.region.endLine}' sarif-output-${{ matrix.language }}.sarif > filtered-${{ matrix.language }}.json
+          jq '.runs[].results[] | {ruleId: .ruleId, message: .message.text, file: .locations[0].physicalLocation.artifactLocation.uri, startLine: .locations[0].physicalLocation.region.startLine, endLine: .locations[0].physicalLocation.region.endLine}' sarif-output-${{ matrix.language }}.sarif/${{ matrix.language }}.sarif > filtered-${{ matrix.language }}.json
       - name: Display Filtered Results
         run: cat filtered-${{ matrix.language }}.json
         env:
