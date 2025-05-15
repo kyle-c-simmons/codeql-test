@@ -32,6 +32,11 @@ jobs:
       - name: Filter SARIF Results
         run: |
           REPO_URL="https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/"
-          jq '.runs[].results[] sarif-output-${{ matrix.language }}.sarif > filtered-${{ matrix.language }}.json
+          jq --arg baseUrl "$REPO_URL" '.runs[].results[] | 
+            {
+              ruleId: .ruleId, 
+              message: .message.text, 
+              url: "\($baseUrl)\(.locations[0].physicalLocation.artifactLocation.uri)#L\(.locations[0].physicalLocation.region.startLine)-L\(.locations[0].physicalLocation.region.endLine)"
+            }' sarif-output-${{ matrix.language }}.sarif/${{ matrix.language }}.sarif > filtered-${{ matrix.language }}.json
       - name: Display Filtered Results
         run: cat filtered-${{ matrix.language }}.json
