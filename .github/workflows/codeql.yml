@@ -30,9 +30,8 @@ jobs:
           category: '/language:${{matrix.language}}'
           output: sarif-output-${{ matrix.language }}.sarif
       - name: Filter SARIF Results
-        env:
-          REPO_URL: "https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/"
         run: |
+          REPO_URL="https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/"
           jq --arg baseUrl "$REPO_URL" '.runs[].results[] | 
             {
               ruleId: .ruleId, 
