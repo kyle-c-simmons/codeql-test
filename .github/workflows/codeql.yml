@@ -32,3 +32,6 @@ jobs:
       - name: Filter SARIF Results
         run: |
           REPO_URL="https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/"
+          jq '.runs[].results[] sarif-output-${{ matrix.language }}.sarif > filtered-${{ matrix.language }}.json
+      - name: Display Filtered Results
+        run: cat filtered-${{ matrix.language }}.json
