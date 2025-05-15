@@ -39,6 +39,6 @@ jobs:
               ruleId: .ruleId, 
               message: .message.text, 
               url: "\($baseUrl)\(.locations[0].physicalLocation.artifactLocation.uri)#L\(.locations[0].physicalLocation.region.startLine)-L\(.locations[0].physicalLocation.region.endLine)"
-            }' sarif-output-${{ matrix.config.language }}.sarif > filtered-${{ matrix.config.language }}.json
+            }' sarif-output-${{ matrix.language }}.sarif > filtered-${{ matrix.language }}.json
       - name: Display Filtered Results
         run: cat filtered-${{ matrix.language }}.json
