@@ -32,7 +32,7 @@ jobs:
       - name: Filter SARIF Results
         run: |
           REPO_URL="https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/"
-          jq --arg baseUrl "$REPO_URL" '.runs[].results[] | 
+          jq '.runs[].results[] | 
             {
               ruleId: .ruleId, 
               message: .message.text, 
