@@ -35,7 +35,7 @@ jobs:
           jq '.runs[].results[] | 
             {
               ruleId: .ruleId, 
-              message: .message.text, 
+              message: .message.text
             }' sarif-output-${{ matrix.language }}.sarif > filtered-${{ matrix.language }}.json
       - name: Display Filtered Results
         run: cat filtered-${{ matrix.language }}.json
